@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <thread>
 
@@ -36,6 +36,7 @@ void receiveMessages(SOCKET sock) {
 
 int main() {
 #ifdef _WIN32
+    system("chcp 65001");
     WSADATA wsa;
     WSAStartup(MAKEWORD(2, 2), &wsa);
 #endif
@@ -45,20 +46,20 @@ int main() {
     sockaddr_in serverAddr{};
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(6699);
-    serverAddr.sin_addr.s_addr = inet_addr("172.28.0.1"); // IP сервера
+    serverAddr.sin_addr.s_addr = inet_addr("172.28.0.1"); // IP СЃРµСЂРІРµСЂР°
 
     if (connect(sock, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
         std::cerr << "Ошибка подключения\n";
         return 1;
     }
 
-    std::cout << "Подключен к серверу!\n";
+    std::cout << "Подключён к серверу!\n";
 
-    // Поток для получения сообщений
+    // РџРѕС‚РѕРє РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёР№
     std::thread recvThread(receiveMessages, sock);
     recvThread.detach();
 
-    // Основной поток отправляет сообщения
+    // РћСЃРЅРѕРІРЅРѕР№ РїРѕС‚РѕРє РѕС‚РїСЂР°РІР»СЏРµС‚ СЃРѕРѕР±С‰РµРЅРёСЏ
     std::string msg;
     while (true) {
         std::cout << "> ";
