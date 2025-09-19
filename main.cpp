@@ -46,7 +46,7 @@ int main() {
     sockaddr_in serverAddr{};
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(6699);
-    serverAddr.sin_addr.s_addr = inet_addr("172.28.0.1"); // IP СЃРµСЂРІРµСЂР°
+    serverAddr.sin_addr.s_addr = inet_addr("185.87.199.98");
 
     if (connect(sock, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
         std::cerr << "Ошибка подключения\n";
@@ -55,11 +55,11 @@ int main() {
 
     std::cout << "Подключён к серверу!\n";
 
-    // РџРѕС‚РѕРє РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёР№
+    
     std::thread recvThread(receiveMessages, sock);
     recvThread.detach();
 
-    // РћСЃРЅРѕРІРЅРѕР№ РїРѕС‚РѕРє РѕС‚РїСЂР°РІР»СЏРµС‚ СЃРѕРѕР±С‰РµРЅРёСЏ
+    
     std::string msg;
     while (true) {
         std::cout << "> ";
