@@ -52,9 +52,10 @@ int main() {
         std::cerr << "Ошибка подключения\n";
         return 1;
     }
-
-    std::cout << "Подключён к серверу!\n";
-
+    else
+    {
+        std::cout << "Подключён к серверу!\n";
+    }
     
     std::thread recvThread(receiveMessages, sock);
     recvThread.detach();
