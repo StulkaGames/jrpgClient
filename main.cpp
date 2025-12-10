@@ -20,21 +20,25 @@
 
 void receiveMessages(SOCKET sock) {
     char buffer[1024];
-    while (true) {
+    while (true)
+    {
         int bytes = recv(sock, buffer, sizeof(buffer) - 1, 0);
-        if (bytes > 0) {
+        if (bytes > 0)
+        {
             buffer[bytes] = '\0';
             std::cout << "\n[Сервер]: " << buffer << "\n> ";
             std::cout.flush();
         }
-        else {
+        else
+        {
             std::cout << "Отключено от сервера\n";
             break;
         }
     }
 }
 
-int main() {
+int main() 
+{
 #ifdef _WIN32
     system("chcp 65001");
     WSADATA wsa;
@@ -46,9 +50,10 @@ int main() {
     sockaddr_in serverAddr{};
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(6699);
-    serverAddr.sin_addr.s_addr = inet_addr("185.87.199.98");
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-    if (connect(sock, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
+    if (connect(sock, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR)
+    {
         std::cerr << "Ошибка подключения\n";
         return 1;
     }
@@ -62,7 +67,8 @@ int main() {
 
     
     std::string msg;
-    while (true) {
+    while (true)
+    {
         std::cout << "> ";
         std::getline(std::cin, msg);
         if (msg == "exit") break;
